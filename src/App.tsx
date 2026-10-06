@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import SuperAdminDashboard from './SuperAdminDashboard';
 import {
   Activity, AlertTriangle, Biohazard, Building2, CloudLightning, CloudRain, Droplets,
   Earth, Factory, Gauge, GitBranch, HeartPulse, Map, Mountain, Radio,
@@ -46,6 +47,7 @@ const severityScore: Record<Severity,number> = {Low:24,Moderate:48,High:72,Extre
 export default function App(){
   const [filter,setFilter]=useState('All');
   const [selected,setSelected]=useState<Hazard>(hazards[0]);
+  const [showAdmin,setShowAdmin]=useState(false);
   const families=useMemo(()=>['All',...Array.from(new Set(hazards.map(h=>h.family)))],[]);
   const visible=filter==='All'?hazards:hazards.filter(h=>h.family===filter);
 
@@ -54,6 +56,7 @@ export default function App(){
       <div className="brand"><div className="brandMark"><Earth size={25}/></div><div><b>Regen Insight</b><span>Multi-hazard resilience intelligence</span></div></div>
       <nav>
         {['Situation Room','Hazard Monitor','Infrastructure','Cascades','Preparedness','Satellite Change','Sensors','Alerts','Reports'].map((x,i)=><button className={i===0?'active':''} key={x}>{['◉','⚠','🏗','🔗','🛡','🛰','📡','🔔','📄'][i]} {x}</button>)}
+        <button onClick={()=>setShowAdmin(true)}>⚙ Super Admin</button>
       </nav>
       <div className="sourceNote"><ShieldAlert size={18}/><div><b>Evidence-first</b><span>Operational alerts should rely on authoritative feeds, calibrated sensors and verified remote-sensing products.</span></div></div>
     </aside>
@@ -122,6 +125,7 @@ export default function App(){
         <Mini icon={<Building2/>} title="Critical infrastructure" text="Power, roads, bridges, water, telecom, hospitals, dams, ports, fuel, data centers and supply chains."/>
       </section>
     </main>
+    {showAdmin && <SuperAdminDashboard onClose={()=>setShowAdmin(false)}/>} 
   </div>
 }
 
