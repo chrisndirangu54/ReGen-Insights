@@ -16,7 +16,8 @@
     "react-dom": "latest",
     "lucide-react": "latest",
     "leaflet": "latest",
-    "react-leaflet": "latest"
+    "react-leaflet": "latest",
+    "firebase": "^12.3.0"
   },
   "devDependencies": {
     "@types/leaflet": "latest",
