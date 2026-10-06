@@ -1,58 +1,79 @@
 # ReGen Insights
 
-Regen Insight is a React/Vite environmental intelligence and disaster-readiness platform. It separates the earlier forestry/planting prototype from the new operational mission: multi-hazard monitoring, early warning, preparedness, mitigation and evidence-based reporting.
+Regen Insight is a React/Vite multi-hazard environmental intelligence, critical-infrastructure resilience and disaster-readiness platform. Its operational objective is not only to identify environmental hazards, but also to estimate how those hazards can damage essential infrastructure, trigger secondary failures, isolate communities and amplify humanitarian or economic losses.
 
-## Hazards covered
+## Hazard coverage
 
-Floods, drought, wildfire, landslides/mudslides, earthquakes, tsunami, tropical cyclones/hurricanes/typhoons, tornado/severe wind, El Niño/La Niña, heatwaves, deforestation, radiation incidents, smoke/air quality, avalanche, coastal erosion and storm surge.
+The platform now explicitly covers floods, drought, wildfire, landslides/mudslides, earthquakes, volcanic activity, tsunami, tropical cyclones/hurricanes/typhoons, tornado/severe wind, lightning, El Niño/La Niña, heatwaves, deforestation, desertification, coastal erosion/storm surge, marine heatwaves, avalanches, glacial/lake-outburst floods, dam failure, radiation incidents, industrial/chemical spills, air-quality emergencies, water-quality emergencies, locust/vector outbreaks, disease-related climate risk, and compound/cascading disasters.
 
-The data model should remain extensible for volcanic activity, lightning, dam failure, industrial/chemical spills, marine heatwaves, water-quality incidents, desertification, locust/vector outbreaks, glacier/lake outburst floods and compound/cascading risk.
+## Infrastructure-first risk model
 
-## Core product modules
+Every hazard is evaluated against critical infrastructure. Infrastructure impact is not an optional module.
 
-- **Situation Room** — multi-hazard operational overview, map layers, active signals, exposure and sensor health.
-- **Hazard Monitor** — hazard-specific indicators, severity, evidence, forecast windows and confidence.
-- **Preparedness** — plans, checklists, drills, evacuation zones, shelters, assets, contacts and response playbooks.
-- **Satellite Change** — optical/SAR change detection for flood extent, burn scars, forest loss, drought/vegetation stress and shoreline change.
-- **Sensors** — weather stations, river gauges, rainfall, soil moisture, air quality, cameras and authorized radiation monitors.
-- **Alerts** — source-attributed alerts with severity, geographic footprint, issue/expiry time, acknowledgement and audit history.
-- **Mitigation** — drainage, water storage, firebreaks, restoration, slope stabilization, cooling centers, coastal setbacks and resilience projects.
-- **Reports** — incident reports, preparedness scorecards, after-action reviews and risk trends.
+- Power and energy — generation, transmission, substations, distribution, backup generation, fuel supply and hydropower.
+- Transport — roads, bridges, rail, airports, ports, evacuation routes and logistics corridors.
+- Water and sanitation — dams, reservoirs, treatment plants, intakes, pumps, sewerage, drainage, boreholes and irrigation.
+- Telecommunications and digital infrastructure — towers, fiber, backhaul, emergency communications, data centers and control networks.
+- Healthcare and emergency services — hospitals, clinics, ambulances, laboratories, emergency operations centers and cold chains.
+- Other critical systems — food supply, fuel depots, pipelines, industrial plants, schools, shelters, finance, warehousing and strategic facilities.
 
-## Data architecture
+For each hazard, the intended model combines hazard probability, physical intensity, exposed infrastructure, fragility, dependency/centrality, population/economic exposure, restoration difficulty and secondary-hazard probability into a system-level risk estimate.
 
-- **Earth observation:** Sentinel/Landsat and optional commercial imagery; optical + SAR change detection.
-- **Weather/climate:** rainfall, wind, humidity, solar radiation, temperature, seasonal forecasts and ENSO outlooks.
-- **Hydrology:** river/lake gauges, soil moisture, runoff, reservoir levels and flood extent.
-- **Terrain/geology:** DEM, slope, drainage, geology and landslide susceptibility layers.
-- **Coastal/ocean:** waves, sea level, surge, shoreline change and authoritative tsunami bulletins.
-- **Atmosphere:** air-quality stations, aerosol/smoke observations and wind transport.
-- **Sensors:** weather stations, river gauges, cameras, air-quality sensors and authorized radiation monitors.
-- **Official alert feeds:** national meteorological/disaster agencies plus international authoritative feeds where relevant.
+## Cascading failure model
+
+Regen Insight represents disasters as dependency graphs rather than isolated events. Example: cyclone → extreme rainfall/storm surge → flooding → landslide/bridge failure → road isolation/transmission failure → telecom outage → water pump/treatment failure → hospital/logistics stress → community and economic crisis.
+
+Other cascade examples include earthquake → utility rupture → fire/chemical release → road blockage → hospital overload; drought → reservoir depletion → hydropower loss → rolling blackouts → water-pumping failures; wildfire → transmission trip → telecom outage → evacuation coordination failure; dam breach → flash flood → bridges/substations/water systems lost; heatwave → electricity demand spike → transformer failure → cooling and hospital stress; and volcanic eruption → ash/lahar → airport, road, water and grid disruption.
+
+## Core modules
+
+- Situation Room — common operating picture for hazards, infrastructure exposure, population and service status.
+- Hazard Monitor — event-specific signals, severity, forecasts, observations, confidence and authoritative sources.
+- Infrastructure — power, transport, water, telecom, health, dams, ports, industrial sites and other critical assets.
+- Cascade Engine — infrastructure dependency graph, secondary hazards, service-interruption scenarios and cascading failure simulation.
+- Preparedness — contingency plans, drills, evacuation zones, shelters, mutual aid, continuity planning and restoration priorities.
+- Satellite Change — optical/SAR monitoring for flood extent, fire scars, vegetation loss, drought, shoreline change, landslides and infrastructure damage.
+- Sensors — river gauges, weather stations, dam instrumentation, water-quality probes, air-quality monitors, radiation monitors, cameras and edge IoT devices.
+- Alerts — source-attributed alerts with issue/expiry time, footprint, severity, confidence and acknowledgement.
+- Mitigation — drainage, levees, restoration, firebreaks, slope stabilization, water storage, cooling centers, redundancy and resilience projects.
+- Incident Management — tasks, teams, resources, affected assets, closures, shelters, casualties, service restoration and situation reports.
+- Reports — risk profiles, preparedness scorecards, impact summaries, after-action reviews and resilience investment priorities.
+
+## Infrastructure dependency graph
+
+Recommended entities include HazardEvent, InfrastructureAsset, Service, Community, Facility, RoadSegment, Bridge, Substation, PowerPlant, WaterPlant, PumpStation, Hospital, TelecomSite, Dam, Port, Airport, Shelter, IndustrialSite, Sensor, Alert and ResponseResource.
+
+Useful graph relations include AFFECTS, DEPENDS_ON, SUPPLIES, CONNECTS_TO, BACKED_UP_BY, ISOLATES, SERVES, LOCATED_IN, MONITORED_BY, TRIGGERS, BLOCKS and RESTORED_BY.
+
+This supports questions such as: Which hospitals lose water if this substation fails? Which communities become inaccessible if this bridge is lost? Which telecom towers depend on the same power feeder? What secondary flood zones appear if a dam fails? Which evacuation routes intersect projected landslide zones? Which critical facilities lack redundant power, water or communications?
 
 ## Safety and alerting principle
 
-The UI must not invent emergency warnings. Production alerts should retain source, observation time, geographic footprint, confidence/quality, severity, expiration, acknowledgement and audit history. AI may summarize, correlate and prioritize evidence, but should not silently replace authoritative emergency bulletins.
+The UI must not invent emergency warnings. Production alerts should retain source, observation time, geographic footprint, confidence/quality, severity, expiration, acknowledgement and audit history. AI can summarize, correlate, simulate dependencies and prioritize evidence, but authoritative warnings must remain clearly attributable.
+
+Infrastructure failure predictions should be presented as modeled probabilities or scenarios unless validated by field telemetry, operators or authoritative reports.
 
 ## Run
 
-```bash
 npm install
 npm run dev
-```
 
-## Next integration layer
+## Recommended backend services
 
-Use a server/API layer for provider credentials and normalization. Suggested services:
+- hazard-ingest
+- eo-change-detection
+- hydrology
+- geophysical-monitor
+- climate-health
+- sensor-gateway
+- infrastructure-registry
+- dependency-graph
+- cascade-simulator
+- exposure-risk
+- alert-orchestrator
+- preparedness-playbooks
+- incident-management
+- restoration-prioritizer
+- reporting
 
-- `hazard-ingest`
-- `eo-change-detection`
-- `hydrology`
-- `sensor-gateway`
-- `alert-orchestrator`
-- `exposure-risk`
-- `preparedness-playbooks`
-- `incident-management`
-- `reporting`
-
-Keep API keys out of the React bundle.
+Keep provider credentials and sensitive infrastructure integrations out of the React bundle.
