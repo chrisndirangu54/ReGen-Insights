@@ -28,6 +28,8 @@ export default function SuperAdminDashboard({onClose}: Props) {
   const [logs,setLogs]=useState<any[]>([]);
   const [roleEmail,setRoleEmail]=useState('');
   const [role,setRole]=useState('admin');
+  const [settingKey,setSettingKey]=useState('');
+  const [settingValue,setSettingValue]=useState('');
   const [message,setMessage]=useState('');
 
   useEffect(()=>onAuthStateChanged(auth,async u=>{
@@ -112,6 +114,9 @@ export default function SuperAdminDashboard({onClose}: Props) {
 
       <section>
         <h3>System settings</h3>
+        <input value={settingKey} onChange={e=>setSettingKey(e.target.value)} placeholder="Setting key"/>
+        <input value={settingValue} onChange={e=>setSettingValue(e.target.value)} placeholder="Value"/>
+        <button className="primary" onClick={()=>call('updateSystemSetting',{key:settingKey,value:settingValue})}>Save setting</button>
         <button onClick={()=>call('updateSystemSetting',{key:'maintenance_mode',value:true})}>Enable maintenance mode</button>
         <button onClick={()=>call('updateSystemSetting',{key:'maintenance_mode',value:false})}>Disable maintenance mode</button>
         <button onClick={()=>call('updateSystemSetting',{key:'alerts.require_authoritative_source',value:true})}>Require authoritative alerts</button>
