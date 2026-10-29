@@ -77,3 +77,9 @@ npm run dev
 - reporting
 
 Keep provider credentials and sensitive infrastructure integrations out of the React bundle.
+
+## Jumuisha AI public warning integration (October 2026)
+
+The Situation Room includes a read-only public warning panel backed by Jumuisha AI. Set `VITE_JUMUISHA_API_BASE_URL` to the approved Jumuisha API URL and configure the exact ReGen frontend origin in the API's `JUMUISHA_ALLOWED_ORIGINS`. No ingestion credential belongs in browser code. See [integration guide](docs/jumuisha-early-warning-integration.md).
+
+**Current status:** GitHub source integration committed; no official agency feed connected, no guaranteed real-time delivery, and build/production tests have not been independently verified. The demonstration situation-room metrics and hazard map are not live monitoring. Never interpret an empty feed as evidence of safety.
