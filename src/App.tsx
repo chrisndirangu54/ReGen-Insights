@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import SuperAdminDashboard from './SuperAdminDashboard';
 import { JumuishaPublicWarnings } from './JumuishaPublicWarnings';
+import { RiskScenarioWorkbench } from './RiskScenarioWorkbench';
 import {
   Activity, AlertTriangle, Biohazard, Building2, CloudLightning, CloudRain, Droplets,
   Earth, Factory, Gauge, GitBranch, HeartPulse, Map, Mountain, Radio,
@@ -66,6 +67,7 @@ export default function App(){
       <header><div><h1>Environmental Situation Room</h1><p>Hazard monitoring, critical-infrastructure failure analysis, early warning, preparedness and mitigation.</p></div><div className="live"><Radio size={16}/> DEMO / PILOT DATA</div></header>
 
       <JumuishaPublicWarnings />
+      <RiskScenarioWorkbench />
 
       <section className="metrics">
         <Metric icon={<AlertTriangle/>} label="Hazard classes" value={String(hazards.length)} hint="Natural + technological + biological"/>
